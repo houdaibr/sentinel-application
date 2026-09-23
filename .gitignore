@@ -1,0 +1,10 @@
+
+.idea/
+target/
+build/
+.env
+node_modules/
+.vscode/
+*.log
+*.iml
+.DS_Store
