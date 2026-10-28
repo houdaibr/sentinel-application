@@ -1,0 +1,24 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sentinel-ingress
+  namespace: {{ .Release.Namespace }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - sentinel.local
+      secretName: sentinel-tls
+  rules:
+    - host: sentinel.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ingest-service
+                port:
+                  number: 80
+{{- end }}

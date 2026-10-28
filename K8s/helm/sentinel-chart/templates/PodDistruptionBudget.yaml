@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ingest-pdb
+spec:
+  selector:
+    matchLabels:
+      app: ingest
+  minAvailable: {{ .Values.pdb.minAvailable}}

@@ -1,0 +1,26 @@
+ingest:
+  replicas : 3
+  resources:
+    requests:
+      cpu: "130m"
+      memory: "230Mi"
+    limits:
+      cpu: "1"
+      memory: "550Mi"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+postgres:
+
+  replicas: 1
+  resources:
+    requests:
+      cpu: "129m"
+      memory: "168Mi"
+    limits:
+      cpu: "530m"
+      memory: "266Mi"
+ingress :
+  enabled: true

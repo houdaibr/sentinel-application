@@ -1,6 +1,7 @@
 package com.sentinel.ingest_service.controller;
 
 import com.sentinel.ingest_service.dto.EventRequest;
+import com.sentinel.ingest_service.dto.EventResponse;
 import com.sentinel.ingest_service.entity.Event;
 import com.sentinel.ingest_service.service.EventService;
 import jakarta.validation.Valid;
@@ -14,16 +15,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/events")
 public class EventController {
 
-    @Autowired
-    EventService eventService;
+
+    private final EventService eventService;
+
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @PostMapping
-    public ResponseEntity<Event> create(@Valid @RequestBody EventRequest req) {
+    public ResponseEntity<EventResponse> create(@Valid @RequestBody EventRequest req) {
         return ResponseEntity.status(HttpStatus.CREATED).body(eventService.createEvent(req));
     }
 
     @GetMapping
-    public ResponseEntity<Page<Event>> list(
+    public ResponseEntity<Page<EventResponse>> list(
             @RequestParam(required = false) String service,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "50") int size) {
